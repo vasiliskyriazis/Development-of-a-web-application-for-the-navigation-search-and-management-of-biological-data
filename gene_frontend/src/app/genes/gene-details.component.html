@@ -1,0 +1,76 @@
+<h2>Gene Details</h2>
+
+<div *ngIf="gene">
+
+  <h3>Basic Information</h3>
+  <table border="1" cellpadding="5" cellspacing="0" width="100%">
+    <tbody>
+      <tr><th>ID</th><td>{{ gene.geneId }}</td></tr>
+      <tr><th>Name</th><td>{{ gene.geneName }}</td></tr>
+      <tr><th>Description</th><td>{{ gene.description }}</td></tr>
+      <tr><th>Type</th><td>{{ gene.geneType }}</td></tr>
+      <tr><th>GC Content</th><td>{{ gene.gcContent }}</td></tr>
+      <tr><th>Chromosome</th><td>{{ gene.chrom }}</td></tr>
+      <tr><th>Start</th><td>{{ gene.geneStart }}</td></tr>
+      <tr><th>End</th><td>{{ gene.geneEnd }}</td></tr>
+      <tr><th>Transcript Count</th><td>{{ gene.transcriptCount }}</td></tr>
+      <tr><th>Synonyms</th><td>{{ gene.geneSynonym }}</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Transcripts</h3>
+  <table border="1" cellpadding="5" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Transcript ID</th>
+        <th>Name</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Type</th>
+        <th>RefSeq</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of gene.transcripts">
+        <td>{{ t.transcriptId }}</td>
+        <td>{{ t.transcriptName }}</td>
+        <td>{{ t.transcriptStart }}</td>
+        <td>{{ t.transcriptEnd }}</td>
+        <td>{{ t.transcriptType }}</td>
+        <td>{{ t.refseq }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Variants</h3>
+<table border="1" cellpadding="5" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>ClinVar ID</th>
+      <th>Chromosome</th>
+      <th>Position</th>
+      <th>Variant Type</th>
+      <th>Clinical Significance</th>
+      <th>rsID</th>
+      <th>NCBI Accession</th>
+      <th>NCBI ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let v of gene.variants">
+      <td>{{ v.clinvarId }}</td>
+      <td>{{ v.chrom }}</td>
+      <td>{{ v.position }}</td>
+      <td>{{ v.variantType || 'N/A' }}</td>
+      <td>{{ v.clinicalSignificance }}</td> 
+      <td>{{ v.rsId || 'N/A' }}</td>
+      <td>{{ v.ncbiAccession || 'N/A' }}</td>
+      <td>{{ v.ncbiID || 'N/A' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+<br>
+<button (click)="backToList()">Back</button>

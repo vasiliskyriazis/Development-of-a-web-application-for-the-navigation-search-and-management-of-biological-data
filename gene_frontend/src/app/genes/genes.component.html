@@ -1,0 +1,128 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Genes</h2>
+
+  <!-- Search Form -->
+  <form class="row g-3 mb-4" (ngSubmit)="searchGenes()">
+    <div class="col-md-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by Gene Name"
+        [(ngModel)]="geneName"
+        name="geneName"
+      />
+    </div>
+
+    <div class="col-md-2">
+      <select class="form-select" [(ngModel)]="operator" name="operator">
+        <option value="AND">AND</option>
+        <option value="OR">OR</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by Description"
+        [(ngModel)]="description"
+        name="description"
+      />
+    </div>
+
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">🔍 Search</button>
+    </div>
+  </form>
+
+  <!-- Add New Gene -->
+  <div class="mb-3">
+    <button
+      *ngIf="auth.isAdmin()"
+      type="button"
+      class="btn btn-success"
+      [routerLink]="['/genes/new']"
+    >
+      ➕ New Gene
+    </button>
+  </div>
+
+  <!-- Debug/Status -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="loading" class="alert alert-info">Loading...</div>
+  <div *ngIf="!loading" class="alert alert-secondary">
+    Total genes: {{ genes.length }}
+  </div>
+
+  <!-- Genes Table -->
+  <div class="table-responsive" *ngIf="!loading && genes.length > 0">
+    <table class="table table-striped table-hover table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Gene ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>GC %</th>
+          <th>Chrom</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Transcripts</th>
+          <th>Synonym</th>
+          <th style="width: 220px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gene of genes">
+          <td>{{ gene.geneId }}</td>
+          <td>{{ gene.geneName }}</td>
+          <td>{{ gene.description }}</td>
+          <td>{{ gene.geneType }}</td>
+          <td>{{ gene.gcContent }}</td>
+          <td>{{ gene.chrom }}</td>
+          <td>{{ gene.geneStart }}</td>
+          <td>{{ gene.geneEnd }}</td>
+          <td>{{ gene.transcriptCount }}</td>
+          <td>{{ gene.geneSynonym }}</td>
+          <td>
+            <div class="d-flex gap-2">
+              <!-- Update -->
+              <button
+                *ngIf="auth.isAdmin()"
+                type="button"
+                class="btn btn-warning btn-sm"
+                [routerLink]="['/genes/edit', gene.geneId]"
+              >
+                ✏ Update
+              </button>
+
+              <!-- Delete -->
+              <button
+                *ngIf="auth.isAdmin()"
+                type="button"
+                class="btn btn-danger btn-sm"
+                (click)="deleteGene(gene.geneId)"
+              >
+                🗑 Delete
+              </button>
+
+              <!-- Details -->
+              <button
+                type="button"
+                class="btn btn-info btn-sm"
+                [routerLink]="['/genes', gene.geneId]"
+              >
+                📄 Details
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No results -->
+  <div *ngIf="!loading && genes.length === 0 && !error" class="alert alert-warning">
+    No genes found.
+  </div>
+</div>

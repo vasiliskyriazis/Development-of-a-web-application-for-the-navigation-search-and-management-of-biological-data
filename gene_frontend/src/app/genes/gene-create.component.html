@@ -1,0 +1,58 @@
+<h2>Create Gene</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" style="max-width: 720px;">
+  <div>
+    <label>gene_id *</label><br />
+    <input formControlName="geneId" />
+  </div>
+
+  <div>
+    <label>gene_name *</label><br />
+    <input formControlName="geneName" />
+  </div>
+
+  <div>
+    <label>description</label><br />
+    <textarea formControlName="description" rows="3"></textarea>
+  </div>
+
+  <div>
+    <label>gene_type</label><br />
+    <input formControlName="geneType" />
+  </div>
+
+  <div>
+    <label>gc_content</label><br />
+    <input type="number" step="0.01" formControlName="gcContent" />
+  </div>
+
+  <div>
+    <label>chrom</label><br />
+    <input formControlName="chrom" />
+  </div>
+
+  <div>
+    <label>gene_start</label><br />
+    <input type="number" formControlName="geneStart" />
+  </div>
+
+  <div>
+    <label>gene_end</label><br />
+    <input type="number" formControlName="geneEnd" />
+  </div>
+
+  <div>
+    <label>transcript_count</label><br />
+    <input type="number" formControlName="transcriptCount" />
+  </div>
+
+  <div>
+    <label>gene_synonym</label><br />
+    <input formControlName="geneSynonym" />
+  </div>
+
+  <div style="margin-top: 12px;">
+    <button type="submit" [disabled]="saving || form.invalid">Save</button>
+    <button type="button" (click)="onCancel()">Cancel</button>
+  </div>
+</form>

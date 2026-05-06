@@ -1,0 +1,108 @@
+<div class="container mt-4">
+  <h2 class="mb-4">✏ Edit Gene</h2>
+
+  <!-- Status messages -->
+  <div *ngIf="loading" class="alert alert-info">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- Edit Form -->
+  <form *ngIf="!loading && gene" (ngSubmit)="save()" class="row g-3">
+
+    <div class="col-md-6">
+      <label class="form-label">Gene Name</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="gene.geneName"
+        name="geneName"
+        required
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Gene Type</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="gene.geneType"
+        name="geneType"
+      />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="gene.description"
+        name="description"
+      />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">GC Content</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="gene.gcContent"
+        name="gcContent"
+      />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Chromosome</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="gene.chrom"
+        name="chrom"
+      />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Transcript Count</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="gene.transcriptCount"
+        name="transcriptCount"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Gene Start</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="gene.geneStart"
+        name="geneStart"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Gene End</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="gene.geneEnd"
+        name="geneEnd"
+      />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Gene Synonym</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="gene.geneSynonym"
+        name="geneSynonym"
+      />
+    </div>
+
+    <!-- Buttons -->
+    <div class="col-12 mt-3">
+      <button type="submit" class="btn btn-success me-2">💾 Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
